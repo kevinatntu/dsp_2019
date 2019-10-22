@@ -1,0 +1,4 @@
+# ignore hw1 all output files
+dsp_hw1/model_0*.txt
+*.exe
+dsp_hw1/result.txt
