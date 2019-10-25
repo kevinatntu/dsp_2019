@@ -51,16 +51,16 @@ int main(int argc, char *argv[])
 	// Run #Iter times
 	for(int iter=0;iter<totalIter;iter++){
 		double gamma[MAX_SEQ][6] = {0};
-		double gamma_k[6][6] = {0}; // 紀錄 number of observation O = k in state i
+		double gamma_k[6][6] = {0}; // 紀錄 number of observation O = k in state i: x-obser, y-state
 		double epsilon[MAX_SEQ-1][6][6] = {0};
 
-		cout << "Epoch " << iter+1 << '\n';
+		// cout << "Epoch " << iter+1 << '\n';
 		// iterate all samples
 		for (int i=0;i<numSeq;i++){
 			string thisSeq = seqlst[i];
 			
-			double alpha[T][6];
-			double beta[T][6];
+			double alpha[MAX_SEQ][6];
+			double beta[MAX_SEQ][6];
 
 			// init alpha_1 & beta_T
 			char o1 = thisSeq[0];
@@ -104,6 +104,7 @@ int main(int argc, char *argv[])
 				// notice: use "ADD" since accumative
 				for(int j=0;j<6;j++){
 					gamma[t][j] += numerator[j] / denominator;
+					// for updating observation use
 					gamma_k[int(o_t)-65][j] += numerator[j] / denominator;
 				}
 			}
@@ -119,7 +120,7 @@ int main(int argc, char *argv[])
 						denominator += numerator[k][j];
 					}
 				}
-
+				// notice: use "ADD" since accumative
 				for(int k=0;k<6;k++){
 					for(int j=0;j<6;j++){
 						epsilon[t][k][j] += numerator[k][j] / denominator;
@@ -135,14 +136,15 @@ int main(int argc, char *argv[])
 			hmm_initial.initial[i] = gamma[0][i] / numSeq;
 		}
 		// update A
+		// NOTICE: 這裡只iterate from t=1 ~ "T-1"
 		for(int i=0;i<6;i++){
 			double gamma_sum = 0;
-			for(int t=0;t<T;t++){
+			for(int t=0;t<T-1;t++){
 				gamma_sum += gamma[t][i];
 			}
 			for(int j=0;j<6;j++){
 				double epsilon_sum = 0;
-				for(int t=0;t<T;t++){
+				for(int t=0;t<T-1;t++){
 					epsilon_sum += epsilon[t][i][j];
 				}
 				hmm_initial.transition[i][j] = epsilon_sum / gamma_sum;

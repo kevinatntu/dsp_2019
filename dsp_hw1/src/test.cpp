@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	// Record each seq's best model name & its probability
 	stringstream resultRec;
 
-	int recOnlyIdx[2500];
+	//int recOnlyIdx[2500];
 
 	// iterate each seq
 	for (int i=0;i<numSeq;i++){
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 		int bestModelIdx = -1;
 		for(int m=0;m<numModel;m++){
 			HMM thisModel = modelLst[m];
-			double delta[T][6];
+			double delta[MAX_SEQ][6];
 			// init delta
 			char o1 = seq[0];
 			for(int j=0;j<6;j++){
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
 		// record best model of this seq
 		resultRec << modelNamePrefix << bestModelIdx+1 << ".txt " << bestProb << '\n' ;
-		recOnlyIdx[i] = bestModelIdx+1;
+		//recOnlyIdx[i] = bestModelIdx+1;
 		//cout << bestProb << '\n';
 	}
 
@@ -107,6 +107,7 @@ int main(int argc, char *argv[])
 	resultFile << resultRec.str();
 	resultFile.close();
 
+	/*
 	// check accuracy by comparing with 'test_lbl.txt'
 	ifstream testLabel("./data/test_lbl.txt");
 	string eachline = "";
@@ -122,6 +123,6 @@ int main(int argc, char *argv[])
 	}
 	testLabel.close();
 	cout << "Accuracy: " << 1.0 * correct / 2500 << '\n';
-	
+	*/
 	return 0;
 }
