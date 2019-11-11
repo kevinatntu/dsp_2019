@@ -2,3 +2,6 @@
 dsp_hw1/model_0*.txt
 *.exe
 dsp_hw1/result.txt
+.vscode/
+*.docx
+hw1_r08922015/
