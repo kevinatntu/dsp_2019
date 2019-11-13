@@ -9,8 +9,8 @@ test_feat=feat/test.39.cmvn.ark
 
 
 ### parameters that you can modify
-opt_acwt=0.87
-test_beam=15.0
+opt_acwt=0.12 # lower get higher accu, but should not be too lower
+test_beam=20.0 # should not be too lower; however, higher won't lead to better accu
 ###
 
 mkdir -p $dir
