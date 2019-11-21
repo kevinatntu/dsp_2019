@@ -1,0 +1,26 @@
+Now best: 95.57% (#iter=30, opt_acwt=0.22)
+topo: 
+	both sil and non-sil are 3-state transition
+	non-sil: total 14 state
+	sil: total 5 state
+train:
+	#iter: 30
+	maxiterinc: 29
+	numgauss: 1
+	totgauss: 30
+	realisn: 1, 3, 5, 7, ... 29
+test:
+	opt_acwt: 0.22
+	test_beam: 20.0
+
+History record:
+單增加#iter & #gauss - 75%左右，增幅不大
+減少opt_actw - 大幅增加到84% => pass simple baseline
+於此再去增加#iter & #gauss到50 - 增加至86-87%
+調整realign為間隔一次做 - 微增至88-89%
+修改topo，增加non-sil state至14 - 增加至93-94%
+修改non-sil每次能跳的state間隔為2 e.g. state0可跳至最遠為state2 - 增加至95.39% => pass strong baseline!
+降低#iter以維持時間在安全範圍內，發現Accuracy並不會降低!
+進一步重新調整opt_acwt後，上升到95.57% 
+
+	
