@@ -48,7 +48,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # make sure change logging level to "WARNING" after programming
-    logging.basicConfig(level=logging.DEBUG) 
+    logging.basicConfig(level=logging.WARNING) 
 
     logging.debug("From {}, To {}".format(args.FROM, args.TO))
 
