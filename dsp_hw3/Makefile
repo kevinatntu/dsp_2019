@@ -4,7 +4,7 @@ INC_PATH ?= inc
 SRC_PATH ?= src
 
 CXX = g++
-CXXFLAGS = -O2 -I$(SRIPATH)/include -I$(INC_PATH)
+CXXFLAGS =-std=c++11 -O2 -I$(SRIPATH)/include -I$(INC_PATH)
 vpath lib%.a $(SRIPATH)/lib/$(MACHINE_TYPE)
 vpath %.c $(SRC_PATH)
 vpath %.cpp $(SRC_PATH)
