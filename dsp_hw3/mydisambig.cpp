@@ -135,8 +135,17 @@ int main(int argc, char *argv[])
                     VocabIndex context[] = {prev_wid, Vocab_None};
 
                     // try multiplyting with -1
-                    double word_logprob = -1 * lm.wordProb(wid, context) * prev_word_logprob;
+                   
+                    /*
+                    double word_logprob = lm.wordProb(wid, context) * prev_word_logprob;
+                    if(lm.wordProb(wid, context) < 0 && prev_word_logprob < 0){
+                        word_logprob *= -1;
+                    }
+                    */
 
+                    // try replace '*" with '+', so as to avoid neg multiply neg num problem
+                    // result shows that it's better than '*'
+                    double word_logprob = lm.wordProb(wid, context) + prev_word_logprob;
                     if(j == 0 || word_logprob > maxprob){
                         maxprob = word_logprob;
                         maxword = prev_word;
