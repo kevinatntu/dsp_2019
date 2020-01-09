@@ -36,7 +36,7 @@ def save_zhuyin2big5_map(zhuyin2big5_dict, output_path):
     with open(output_path, "w", encoding="big5-hkscs") as f:
         for key, value in zhuyin2big5_dict.items():
             value_lst = ' '.join(value)
-            line = key + "\t" + value_lst + '\n'
+            line = key + " " + value_lst + '\n'
             f.write(line)
     
 

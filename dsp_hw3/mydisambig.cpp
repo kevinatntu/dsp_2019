@@ -47,10 +47,13 @@ int main(int argc, char *argv[])
 
     string eachline = "";
     while(getline(zhuYin2Big5_file, eachline)){
-        int tab_idx = eachline.find('\t');
-        string key = eachline.substr(0, tab_idx);
-        string value_substr = eachline.substr(tab_idx+1);
-        istringstream value_stream(value_substr);
+        //int tab_idx = eachline.find('\t');
+        //string key = eachline.substr(0, tab_idx);
+        //string value_substr = eachline.substr(tab_idx+1);
+        istringstream value_stream(eachline);
+		string key = "";
+		value_stream >> key;
+		
         string value = "";
         vector<string> value_lst;
         while(value_stream >> value){
@@ -134,7 +137,7 @@ int main(int argc, char *argv[])
                     
                     VocabIndex context[] = {prev_wid, Vocab_None};
 
-                    // try multiplyting with -1
+                    // try multiplyting with -1 - wrong
                    
                     /*
                     double word_logprob = lm.wordProb(wid, context) * prev_word_logprob;
@@ -143,8 +146,8 @@ int main(int argc, char *argv[])
                     }
                     */
 
-                    // try replace '*" with '+', so as to avoid neg multiply neg num problem
-                    // result shows that it's better than '*'
+                    // replace '*" with '+'
+                    // since here we use 'Log' probability, so it becomes '+' when separate
                     double word_logprob = lm.wordProb(wid, context) + prev_word_logprob;
                     if(j == 0 || word_logprob > maxprob){
                         maxprob = word_logprob;
